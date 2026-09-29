@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="description" content="Plan and track your journey to study in China in 2027. Featuring a 3D celestial globe, live deadline countdown, macroeconomic statistics, university finder, HSK language roadmap, and application document checklist.">
+  <meta name="theme-color" content="#0a0c10">
+  <title>CHINA 2027 — Study in China Planner & Preparation Dashboard</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+  <!-- Core CSS Token System & Layouts -->
+  <link rel="stylesheet" href="./src/styles/variables.css">
+  <link rel="stylesheet" href="./src/styles/reset.css">
+  <link rel="stylesheet" href="./src/styles/layout.css">
+  <link rel="stylesheet" href="./src/styles/components.css">
+  <link rel="stylesheet" href="./src/styles/animations.css">
+</head>
+<body>
+  <!-- Fixed 3D WebGL Canvas Layer -->
+  <canvas id="bg-canvas" aria-label="3D Interactive Celestial Globe & Constellation"></canvas>
+
+  <!-- Main Application Wrapper -->
+  <div id="app" class="app-layout">
+    <!-- Top Header & Mobile Brand Bar -->
+    <header id="app-header" class="top-header app-header"></header>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content">
+      <!-- High-Impact Hero Banner -->
+      <div id="hero-container"></div>
+
+      <!-- App Views (Switched dynamically via tab selection) -->
+      <div id="views-container" class="views-container">
+        <!-- View 1: Dashboard (Default Active) -->
+        <section id="view-dashboard" class="view-panel app-view active" role="tabpanel" aria-labelledby="tab-dashboard" data-view="dashboard">
+          <div class="view-header">
+            <h2 class="view-title" data-i18n="Preparation Dashboard">Preparation Dashboard</h2>
+            <p class="view-desc" data-i18n="Countdown to September 2027 deadlines and macroeconomic insights into modern China.">Countdown to September 2027 deadlines and macroeconomic insights into modern China.</p>
+          </div>
+          <!-- Bento Grid Architecture Mount Point with Required Anchors -->
+          <div id="dashboard-bento-container" class="dashboard-bento-slot">
+            <div id="countdown-container" class="view-section"></div>
+            <div id="china-metrics-container" class="view-section"></div>
+            <div id="stats-grid" class="stats-grid view-section"></div>
+            <div id="charts-container" class="charts-grid view-section"></div>
+            <div id="china-news-container" class="view-section"></div>
+          </div>
+        </section>
+
+        <!-- View 2: School Finder -->
+        <section id="view-schools" class="view-panel app-view" role="tabpanel" aria-labelledby="tab-schools" data-view="schools">
+          <!-- Mounting target for Milestone M3 SchoolFinder component -->
+          <div id="school-finder-container" class="view-section"></div>
+        </section>
+
+        <!-- View 3: Language Timeline -->
+        <section id="view-timeline" class="view-panel app-view" role="tabpanel" aria-labelledby="tab-timeline" data-view="timeline">
+          <!-- Mounting target for Milestone M3 LanguageTimeline component -->
+          <div id="language-timeline-container" class="view-section"></div>
+        </section>
+
+        <!-- View 4: Document Checklist -->
+        <section id="view-checklist" class="view-panel app-view" role="tabpanel" aria-labelledby="tab-checklist" data-view="checklist">
+          <!-- Mounting targets for Milestone M3 DocumentChecklist component -->
+          <div id="document-checklist-container" class="view-section"></div>
+          <div id="checklist-container" class="view-section"></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Mobile Fixed Bottom Navigation Bar -->
+    <div id="bottom-nav-container"></div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-container">
+        <p class="footer-text" data-i18n="CHINA 2027 · Plan and Track Study Goals · Mock Data Model">
+          CHINA 2027 · Plan and Track Study Goals · Mock Data Model
+        </p>
+        <p class="footer-sub" data-i18n="Sources: Ministry of Education PRC, C9 League Directory, QS World University Rankings 2025/2026.">
+          Sources: Ministry of Education PRC, C9 League Directory, QS World University Rankings 2025/2026.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Main JavaScript Bootstrap Module -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

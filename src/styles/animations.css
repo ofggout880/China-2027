@@ -1,0 +1,82 @@
+/* ==========================================================================
+   CHINA 2027 — KEYFRAME ANIMATIONS & GLOW EFFECTS
+   Keyframe animations and motion preferences.
+   ========================================================================== */
+
+/* 1. View Transition Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. Beacon Pulsing Glow */
+@keyframes pulseGlow {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 42, 74, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 42, 74, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 42, 74, 0);
+  }
+}
+
+.pulse-animation {
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* 3. Subtle Floating Orbit */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float-slow {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+/* 4. Imperial Gold Shimmer */
+@keyframes goldShimmer {
+  0% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 4px rgba(255, 222, 0, 0.4));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(255, 222, 0, 0.8));
+  }
+  100% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 4px rgba(255, 222, 0, 0.4));
+  }
+}
+
+.shimmer-gold {
+  animation: goldShimmer 3s ease-in-out infinite;
+}
+
+/* 5. Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

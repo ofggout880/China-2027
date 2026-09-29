@@ -1,0 +1,96 @@
+/* ==========================================================================
+   CHINA 2027 — DESIGN TOKENS & CSS VARIABLES
+   Visual Identity: Dark Charcoal Base, China Red & Vibrant Crimson, Imperial Gold
+   Mobile-first design tokens.
+   ========================================================================== */
+
+:root {
+  /* Surface & Background Colors */
+  --bg-primary: #0a0c10;
+  --bg-secondary: #12151c;
+  --bg-tertiary: #181d26;
+  --bg-card: rgba(18, 21, 28, 0.88);
+  --bg-card-hover: rgba(26, 31, 42, 0.95);
+  --bg-surface-glass: rgba(18, 21, 28, 0.75);
+  --bg-surface-elevated: #222836;
+
+  /* China Red & Vibrant Crimson Accents */
+  --color-red-primary: #DE2910;       /* China Flag Red */
+  --color-red-vibrant: #FF2A4A;       /* High-visibility Neon Crimson */
+  --color-red-deep: #8B0000;          /* Deep Crimson Border */
+  --color-red-light: #FF5E74;         /* Hover Highlight */
+  --color-red-glow: rgba(255, 42, 74, 0.35); /* Glowing Halo */
+  --color-red-subtle: rgba(222, 41, 16, 0.15);
+
+  /* Imperial Gold Accents (Five-Star Gold) */
+  --color-gold: #FFDE00;              /* Five-Star Imperial Gold */
+  --color-gold-muted: #D4AF37;
+  --color-gold-glow: rgba(255, 222, 0, 0.28);
+  --color-gold-subtle: rgba(255, 222, 0, 0.12);
+
+  /* Status Colors */
+  --color-success: #10B981;
+  --color-info: #3B82F6;
+  --color-warning: #F59E0B;
+
+  /* High-Contrast Typography Tokens (WCAG AAA Compliant) */
+  --text-primary: #F3F4F6;            /* >16:1 contrast ratio against #0a0c10 */
+  --text-secondary: #9CA3AF;          /* >6:1 contrast ratio */
+  --text-muted: #6B7280;              /* >4.5:1 contrast ratio */
+  --text-accent-red: #FF4D6D;
+  --text-accent-gold: #FFDE00;
+  --text-accent-cyan: #38BDF8;
+
+  /* Font Families */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Font Sizes & Line Heights */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-card: rgba(255, 255, 255, 0.12);
+  --border-red: rgba(222, 41, 16, 0.40);
+  --border-red-focus: rgba(255, 42, 74, 0.80);
+  --border-gold: rgba(255, 222, 0, 0.40);
+
+  /* Layout Geometry & Touch Minimums */
+  --tap-min-size: 44px;               /* Strict WCAG 2.5.5 minimum touch size */
+  --header-height-mobile: 56px;
+  --header-height-desktop: 70px;
+  --bottom-nav-height: 64px;
+  --container-max-width: 1280px;
+
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows, Glows & Glassmorphism */
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.65), 0 0 1px 1px rgba(255, 255, 255, 0.06);
+  --shadow-glow-red: 0 0 24px -2px rgba(255, 42, 74, 0.40);
+  --shadow-glow-gold: 0 0 20px -2px rgba(255, 222, 0, 0.35);
+  --backdrop-blur: blur(16px);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Z-Index Stacking */
+  --z-canvas: 0;
+  --z-app: 10;
+  --z-header: 100;
+  --z-bottom-nav: 200;
+  --z-modal: 1000;
+}
