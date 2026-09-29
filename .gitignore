@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build and bundles
+website/dist/
+dist/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs & temp test profiles
+*.log
+.chrome-profile/
+.agents/

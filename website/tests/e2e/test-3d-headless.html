@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Headless WebGL & Fallback Verification</title>
+  <link rel="stylesheet" href="../../src/styles/variables.css">
+  <link rel="stylesheet" href="../../src/styles/reset.css">
+  <link rel="stylesheet" href="../../src/styles/layout.css">
+</head>
+<body>
+  <!-- Fixed 3D Canvas -->
+  <canvas id="bg-canvas" width="800" height="600" style="width: 800px; height: 600px;"></canvas>
+
+  <div id="app" class="app-layout">
+    <header id="app-header"></header>
+    <main id="main-content">
+      <div id="hero-container"></div>
+      <div id="views-container">
+        <section id="view-dashboard" class="view-panel active"></section>
+        <section id="view-schools" class="view-panel" hidden></section>
+        <section id="view-timeline" class="view-panel" hidden></section>
+        <section id="view-checklist" class="view-panel" hidden></section>
+      </div>
+    </main>
+    <div id="bottom-nav-container"></div>
+  </div>
+
+  <div id="test-output">WAITING</div>
+
+  <script type="module">
+    window.__capturedErrors = [];
+    window.addEventListener('error', (e) => {
+      window.__capturedErrors.push(e.message || String(e));
+    });
+
+    import '../../src/main.js';
+
+    // Allow settle and evaluate 3D controller in headless environment
+    setTimeout(() => {
+      const hook = window.__CHINA_2027_3D__;
+      const domElem = hook && hook.renderer ? hook.renderer.domElement : null;
+      const domAttached = Boolean(domElem && document.body.contains(domElem));
+      const childrenCount = hook && hook.scene && hook.scene.children ? hook.scene.children.length : 0;
+      
+      const results = {
+        hasHook: Boolean(hook),
+        isFallback2D: hook ? hook.isFallback2D : null,
+        isWebGL: hook && hook.renderer ? hook.renderer.isWebGL : null,
+        sceneChildrenCount: childrenCount,
+        domElementAttached: domAttached,
+        frameCount: hook ? hook.frameCount : null,
+        consoleErrors: [...window.__capturedErrors],
+        passed: Boolean(
+          hook &&
+          childrenCount >= 2 &&
+          domAttached &&
+          (hook.frameCount >= 0) &&
+          window.__capturedErrors.length === 0
+        )
+      };
+
+      document.getElementById('test-output').textContent = JSON.stringify(results, null, 2);
+    }, 200);
+  </script>
+</body>
+</html>
