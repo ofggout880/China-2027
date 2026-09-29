@@ -71,24 +71,20 @@ export function renderTopHeader() {
       </nav>
 
       <!-- Header Right Badges -->
-      <div class="header-actions" style="display: flex; gap: 8px; align-items: center; flex-wrap: nowrap;">
+      <div class="header-actions">
         <!-- Duo Profile Switcher -->
         <div class="profile-switcher-pill" role="group" aria-label="Candidate Profile">
           <button type="button" class="profile-btn ${store.getState().activeProfile === 'matthieu' ? 'active' : ''}" data-profile="matthieu" aria-label="Espace Matthieu">
-            <span>👦 Matthieu</span>
+            <span class="profile-name-text">Matthieu</span>
           </button>
           <button type="button" class="profile-btn ${store.getState().activeProfile === 'agathe' ? 'active' : ''}" data-profile="agathe" aria-label="Espace Agathe">
-            <span>👧 Agathe</span>
+            <span class="profile-name-text">Agathe</span>
           </button>
         </div>
 
-        <button id="lang-toggle-btn" class="btn btn-secondary" style="padding: 4px 10px; height: 32px; font-size: 0.85rem;" aria-label="Toggle Language">
+        <button id="lang-toggle-btn" class="btn btn-secondary lang-glass-btn" aria-label="Toggle Language">
           ${store.getState().language === 'fr' ? 'FR' : 'EN'}
         </button>
-        <div class="intake-badge header-badge" data-testid="header-countdown-badge">
-          <span class="badge-dot"></span>
-          <span class="badge-text" id="header-countdown-text">${t('Sept 2027')}</span>
-        </div>
 
         <!-- Burger Menu Toggle Button -->
         <button
@@ -144,11 +140,11 @@ export function renderBurgerDrawer() {
       <div class="burger-drawer-content">
         <!-- Section 1: Duo Workspace Switcher -->
         <div class="drawer-section">
-          <span class="drawer-section-title">👤 ${isFr ? 'Espace Candidat' : 'Candidate Workspace'}</span>
+          <span class="drawer-section-title">Espace Candidat</span>
           <div class="drawer-profiles-grid">
             <button type="button" class="drawer-profile-btn ${!isAgathe ? 'active' : ''}" data-profile="matthieu">
               <div class="profile-btn-header">
-                <span class="profile-avatar">👦</span>
+                <span class="profile-initial-badge">M</span>
                 <span class="profile-name">Matthieu</span>
                 <span class="profile-badge badge-stem">STIM & IA</span>
               </div>
@@ -157,7 +153,7 @@ export function renderBurgerDrawer() {
 
             <button type="button" class="drawer-profile-btn ${isAgathe ? 'active' : ''}" data-profile="agathe">
               <div class="profile-btn-header">
-                <span class="profile-avatar">👧</span>
+                <span class="profile-initial-badge">A</span>
                 <span class="profile-name">Agathe</span>
                 <span class="profile-badge badge-mgmt">Management</span>
               </div>
@@ -169,7 +165,7 @@ export function renderBurgerDrawer() {
         <!-- Section 2: Notes Personnelles du Candidat (Indépendantes Matthieu / Agathe) -->
         <div class="drawer-section drawer-notes-section">
           <div class="drawer-notes-header">
-            <span class="drawer-section-title">📝 ${isFr ? 'Bloc-Notes — ' + (isAgathe ? 'Agathe 👧' : 'Matthieu 👦') : 'Notes — ' + (isAgathe ? 'Agathe 👧' : 'Matthieu 👦')}</span>
+            <span class="drawer-section-title">📝 ${isFr ? 'Bloc-Notes — ' + (isAgathe ? 'Agathe' : 'Matthieu') : 'Notes — ' + (isAgathe ? 'Agathe' : 'Matthieu')}</span>
             <span class="drawer-notes-status" id="drawer-notes-status">💾 ${isFr ? 'Enregistré' : 'Saved'}</span>
           </div>
 

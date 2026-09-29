@@ -980,9 +980,7 @@ export function renderTimelineHero(summary = getHskSummary()) {
   const activeProfId = (store && store.getState().activeProfile) || 'matthieu';
   const isAgathe = activeProfId === 'agathe';
   const profName = isAgathe ? 'Agathe' : 'Matthieu';
-  const profAvatar = isAgathe ? '👧' : '👦';
   const otherName = isAgathe ? 'Matthieu' : 'Agathe';
-  const otherAvatar = isAgathe ? '👦' : '👧';
   const otherId = isAgathe ? 'matthieu' : 'agathe';
   const isFr = store && store.getState().language === 'fr';
   const targetHsk = isAgathe ? 'HSK 4/5 (Management & Bilingue)' : 'HSK 5/6 (Ingénierie & Master C9)';
@@ -1001,7 +999,7 @@ export function renderTimelineHero(summary = getHskSummary()) {
     <!-- Candidate Profile Workspace Banner -->
     <div class="candidate-workspace-banner" style="margin-bottom: 1.5rem;">
       <div class="candidate-info-group">
-        <span class="candidate-avatar">${profAvatar}</span>
+        <span class="candidate-monogram ${isAgathe ? 'mono-agathe' : 'mono-matthieu'}">${isAgathe ? 'A' : 'M'}</span>
         <div class="candidate-meta">
           <span class="candidate-name">${t('Candidate Workspace:')} ${profName}</span>
           <span class="candidate-track">${t('Target Level:')} ${targetHsk}</span>
@@ -1009,7 +1007,6 @@ export function renderTimelineHero(summary = getHskSummary()) {
       </div>
       <button type="button" class="candidate-switch-link" data-profile="${otherId}">
         <span>${t(isAgathe ? 'Switch to Matthieu' : 'Switch to Agathe')}</span>
-        <span>${otherAvatar}</span>
       </button>
     </div>
 

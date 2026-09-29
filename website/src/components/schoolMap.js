@@ -176,11 +176,8 @@ export function renderSchoolMapMarkup() {
         
         <!-- Header Actions -->
         <div class="map-actions-group">
-          <button type="button" class="btn btn-ghost map-reset-view-btn" id="map-reset-view-btn" title="Recentrer sur toute la Chine">
+          <button type="button" class="btn btn-ghost map-reset-view-btn" id="map-reset-view-btn" title="${t('Overview')}">
             <span>🗺️ ${t('Overview')}</span>
-          </button>
-          <button type="button" class="btn btn-ghost map-key-config-btn" id="map-key-config-btn" title="Modifier la clé Google Maps API">
-            <span>🔑 API Key</span>
           </button>
         </div>
       </div>
@@ -211,18 +208,42 @@ export function mountSchoolMap(containerEl, universities = []) {
   const storedKey = (typeof window !== 'undefined' && (window.GOOGLE_MAPS_API_KEY || localStorage.getItem('china2027_gmaps_key'))) || DEFAULT_GMAPS_KEY;
 
   const resetBtn = containerEl.querySelector('#map-reset-view-btn');
-  const keyBtn = containerEl.querySelector('#map-key-config-btn');
   const viewport = containerEl.querySelector('#google-maps-viewport');
   const fallbackCanvas = containerEl.querySelector('#map-fallback-canvas');
   const callout = containerEl.querySelector('#map-active-callout');
   const calloutName = containerEl.querySelector('#map-callout-name');
   const calloutCity = containerEl.querySelector('#map-callout-city');
 
-  // Center of China (covering Beijing, Shanghai, Guangzhou, Harbin)
-  const defaultCenter = { lat: 34.5, lng: 114.0 };
+  // Southern-inclusive default center of China (comfortably covering Guangdong to Harbin)
+  const defaultCenter = { lat: 32.5, lng: 113.5 };
   const defaultZoom = 4;
 
   let isGoogleMapsActive = false;
+
+  const fitAllChinaBounds = (maps) => {
+    if (!gmapInstance) return;
+    const gmaps = maps || (window.google && window.google.maps);
+    if (!gmaps || !gmaps.LatLngBounds) {
+      gmapInstance.panTo(defaultCenter);
+      gmapInstance.setZoom(defaultZoom);
+      return;
+    }
+
+    const bounds = new gmaps.LatLngBounds();
+    universities.forEach((u) => {
+      if (u.coordinates) {
+        bounds.extend(new gmaps.LatLng(u.coordinates.lat, u.coordinates.lng));
+      }
+    });
+
+    // Explicit coordinate anchors ensuring South China (Guangdong, Greater Bay Area) and North (Harbin) are fully framed
+    bounds.extend(new gmaps.LatLng(21.5, 113.0)); // Southern boundary buffer (Guangdong)
+    bounds.extend(new gmaps.LatLng(46.0, 126.8)); // Northern boundary buffer (Heilongjiang)
+    bounds.extend(new gmaps.LatLng(31.0, 102.5)); // Western buffer
+    bounds.extend(new gmaps.LatLng(31.5, 122.0)); // Eastern buffer (Shanghai)
+
+    gmapInstance.fitBounds(bounds, { top: 20, right: 20, bottom: 20, left: 20 });
+  };
 
   const initGoogleMap = (maps) => {
     try {
@@ -285,6 +306,8 @@ export function mountSchoolMap(containerEl, universities = []) {
       });
 
       isGoogleMapsActive = true;
+      // Frame all universities with Guangdong and Harbin bounds once tiles/viewport initialize
+      setTimeout(() => fitAllChinaBounds(maps), 200);
     } catch (e) {
       console.warn('[schoolMap] Google Maps init failed, using vector fallback:', e);
       renderVectorFallback();
@@ -333,15 +356,11 @@ export function mountSchoolMap(containerEl, universities = []) {
           <!-- City Region Labels -->
           <text x="310" y="110" fill="#9ca3af" font-size="9" opacity="0.6">Beijing / Harbin (North)</text>
           <text x="390" y="240" fill="#9ca3af" font-size="9" opacity="0.6">Shanghai / Yangtze (East)</text>
-          <text x="280" y="360" fill="#9ca3af" font-size="9" opacity="0.6">Guangzhou / GBA (South)</text>
+          <text x="280" y="360" fill="#ffde00" font-size="9" opacity="0.8">Guangzhou / Guangdong (South)</text>
 
           <!-- University Pins -->
           ${markersSvg}
         </svg>
-
-        <div class="vector-map-hint">
-          <span>💡 ${t('Interactive map active. Add Google Maps API key for satellite zoom.')}</span>
-        </div>
       </div>
     `;
 
@@ -381,32 +400,10 @@ export function mountSchoolMap(containerEl, universities = []) {
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       if (isGoogleMapsActive && gmapInstance) {
-        gmapInstance.panTo(defaultCenter);
-        gmapInstance.setZoom(defaultZoom);
+        fitAllChinaBounds();
         if (activeInfoWindow) activeInfoWindow.close();
       }
       if (callout) callout.style.display = 'none';
-    });
-  }
-
-  // API Key Prompt Listener
-  if (keyBtn) {
-    keyBtn.addEventListener('click', () => {
-      const current = localStorage.getItem('china2027_gmaps_key') || '';
-      const entered = window.prompt(
-        "Veuillez coller votre clé Google Maps JavaScript API (ou laissez vide pour réinitialiser) :",
-        current
-      );
-      if (entered !== null) {
-        localStorage.setItem('china2027_gmaps_key', entered.trim());
-        if (entered.trim()) {
-          loadGoogleMapsScript(entered.trim())
-            .then(initGoogleMap)
-            .catch(() => alert("Impossible de charger Google Maps avec cette clé. Vérifiez l'activation de 'Maps JavaScript API'."));
-        } else {
-          renderVectorFallback();
-        }
-      }
     });
   }
 

@@ -1,6 +1,6 @@
 /**
  * src/components/heroBanner.js
- * High-Impact 3D Overlay Hero Banner with China Red Aesthetics & Quick Action CTAs
+ * Streamlined Hero Header: Retains Target China title, Fall 2027 badge, and quick stats ribbon
  */
 import { t } from '../i18n.js';
 import { store } from '../store.js';
@@ -25,55 +25,24 @@ export function renderHeroBanner() {
           <span class="hero-title-sub">启航中国 · 全方位留学规划与追踪系统</span>
         </h1>
 
-        <!-- Subtitle & Vision -->
-        <p class="hero-description hero-subtitle">
-          ${t('An interactive, data-driven mission control center for your academic journey to China. Explore premier C9 League universities, navigate the HSK 1–6 language roadmap, and organize admission dossiers with live countdown intelligence.')}
-        </p>
-
-        <!-- Quick Action CTAs (Directly switch views via store.setTab) -->
-        <div class="hero-actions">
-          <button type="button" class="btn btn-primary" data-nav="schools" data-action="explore-schools" aria-label="Explore Universities">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-            </svg>
-            <span>${t('Explore Universities')}</span>
-          </button>
-          
-          <button type="button" class="btn btn-secondary" data-nav="checklist" data-action="view-checklist" aria-label="Application Checklist">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M9 11l3 3L22 4"/>
-              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-            </svg>
-            <span>${t('Application Checklist')}</span>
-          </button>
-
-          <button type="button" class="btn btn-ghost" data-nav="timeline" data-action="view-timeline" aria-label="HSK Timeline">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <span>${t('HSK Roadmap')}</span>
-          </button>
-        </div>
-
-        <!-- Hero Quick Metric Chips -->
+        <!-- Hero Quick Metric Ribbon -->
         <div class="hero-stats-ribbon">
-          <div class="stat-chip">
+          <div class="stat-chip" data-nav="checklist" role="button" tabindex="0" aria-label="Target Intake: Sept 1, 2027">
             <span class="stat-chip-val text-accent-red">Sept 1, 2027</span>
             <span class="stat-chip-label">${t('Target Intake')}</span>
           </div>
           <div class="stat-chip-divider"></div>
-          <div class="stat-chip">
+          <div class="stat-chip" data-nav="schools" role="button" tabindex="0" aria-label="10 Elite Universities C9 & 985 League">
             <span class="stat-chip-val text-accent-gold">10 Elite Unis</span>
             <span class="stat-chip-label">${t('C9 & 985 League')}</span>
           </div>
           <div class="stat-chip-divider"></div>
-          <div class="stat-chip">
+          <div class="stat-chip" data-nav="timeline" role="button" tabindex="0" aria-label="Language Ladder HSK 1 to 6">
             <span class="stat-chip-val text-accent-cyan">HSK 1 → 6</span>
             <span class="stat-chip-label">${t('Language Ladder')}</span>
           </div>
         </div>
       </div>
     </section>
-  `;
+  `.trim();
 }

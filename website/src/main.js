@@ -119,11 +119,28 @@ window.addEventListener('profilechange', () => {
 });
 }
 
+import { renderDashboardBento } from './components/dashboardBento.js';
+
 /**
- * Initializes and mounts all Milestone M2 Preparation Dashboard components.
+ * Initializes and mounts all Milestone M2 Preparation Dashboard components inside Bento Grid.
  * Employs defensive error boundaries to ensure zero uncaught runtime exceptions.
  */
 export function initDashboardView() {
+  const bentoSlot = document.getElementById('dashboard-bento-container') || document.getElementById('view-dashboard');
+  if (bentoSlot) {
+    if (bentoSlot.id === 'view-dashboard') {
+      let innerSlot = bentoSlot.querySelector('#dashboard-bento-container');
+      if (!innerSlot) {
+        innerSlot = document.createElement('div');
+        innerSlot.id = 'dashboard-bento-container';
+        bentoSlot.appendChild(innerSlot);
+      }
+      innerSlot.innerHTML = renderDashboardBento();
+    } else {
+      bentoSlot.innerHTML = renderDashboardBento();
+    }
+  }
+
   // A. Mount September 2027 Countdown Timer (M2.3)
   const countdownContainer = document.getElementById('countdown-container');
   if (countdownContainer) {
@@ -144,25 +161,29 @@ export function initDashboardView() {
     }
   }
 
-  // C. Mount Visual Analytics Charts (M2.2)
-  const chartsContainer = document.getElementById('charts-container');
-  if (chartsContainer) {
+  // C. Mount Visual Analytics Charts into Bento Slots (M2.2)
+  const growthSlot = document.getElementById('charts-growth-slot');
+  const donutSlot = document.getElementById('charts-donut-slot');
+  const growthData = chinaStatistics?.charts?.studentEnrollmentTrend?.data;
+  const donutData = chinaStatistics?.charts?.disciplineDistribution?.data;
+
+  if (growthSlot && growthData) {
     try {
-      const growthData = chinaStatistics?.charts?.studentEnrollmentTrend?.data;
-      const donutData = chinaStatistics?.charts?.disciplineDistribution?.data;
-
-      chartsContainer.innerHTML = `
-        ${renderStudentGrowthChart(growthData)}
-        ${renderDisciplineDonutChart(donutData)}
-      `;
-
-      const growthCard = chartsContainer.querySelector('#chart-card-student-growth');
-      const donutCard = chartsContainer.querySelector('#chart-card-discipline-donut');
-
+      growthSlot.innerHTML = renderStudentGrowthChart(growthData);
+      const growthCard = growthSlot.querySelector('#chart-card-student-growth');
       if (growthCard) setupStudentGrowthChart(growthCard, growthData);
+    } catch (err) {
+      console.warn('[main] Student growth chart mount handled with fallback:', err);
+    }
+  }
+
+  if (donutSlot && donutData) {
+    try {
+      donutSlot.innerHTML = renderDisciplineDonutChart(donutData);
+      const donutCard = donutSlot.querySelector('#chart-card-discipline-donut');
       if (donutCard) setupDisciplineDonutChart(donutCard, donutData);
     } catch (err) {
-      console.warn('[main] Charts mount handled with fallback:', err);
+      console.warn('[main] Discipline donut chart mount handled with fallback:', err);
     }
   }
 

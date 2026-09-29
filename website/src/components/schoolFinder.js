@@ -305,9 +305,7 @@ export function renderSchoolFinder(universities = defaultData) {
   const activeProfId = (store && store.getState().activeProfile) || 'matthieu';
   const isAgathe = activeProfId === 'agathe';
   const profName = isAgathe ? 'Agathe' : 'Matthieu';
-  const profAvatar = isAgathe ? '👧' : '👦';
   const otherName = isAgathe ? 'Matthieu' : 'Agathe';
-  const otherAvatar = isAgathe ? '👦' : '👧';
   const otherId = isAgathe ? 'matthieu' : 'agathe';
   const isFr = store && store.getState().language === 'fr';
   const profTrack = isAgathe ? (isFr ? 'Management & Langues' : 'Management & Languages') : (isFr ? 'Ingénierie & IA (STIM)' : 'Engineering & AI (STEM)');
@@ -325,7 +323,7 @@ export function renderSchoolFinder(universities = defaultData) {
       <!-- Candidate Profile Workspace Banner -->
       <div class="candidate-workspace-banner">
         <div class="candidate-info-group">
-          <span class="candidate-avatar">${profAvatar}</span>
+          <span class="candidate-monogram ${isAgathe ? 'mono-agathe' : 'mono-matthieu'}">${isAgathe ? 'A' : 'M'}</span>
           <div class="candidate-meta">
             <span class="candidate-name">${t('Candidate Workspace:')} ${profName}</span>
             <span class="candidate-track">${t('Target Track:')} ${profTrack} · ${favs.length} ${isFr ? 'favoris enregistrés' : 'saved favorites'}</span>
@@ -333,7 +331,6 @@ export function renderSchoolFinder(universities = defaultData) {
         </div>
         <button type="button" class="candidate-switch-link" data-profile="${otherId}">
           <span>${t(isAgathe ? 'Switch to Matthieu' : 'Switch to Agathe')}</span>
-          <span>${otherAvatar}</span>
         </button>
       </div>
 

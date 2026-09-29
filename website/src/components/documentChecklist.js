@@ -367,9 +367,7 @@ export function renderChecklistProgress(summary) {
   const activeProfId = (typeof store !== 'undefined' && store && store.getState().activeProfile) || 'matthieu';
   const isAgathe = activeProfId === 'agathe';
   const profName = isAgathe ? 'Agathe' : 'Matthieu';
-  const profAvatar = isAgathe ? '👧' : '👦';
   const otherName = isAgathe ? 'Matthieu' : 'Agathe';
-  const otherAvatar = isAgathe ? '👦' : '👧';
   const otherId = isAgathe ? 'matthieu' : 'agathe';
   const isFr = typeof store !== 'undefined' && store && store.getState().language === 'fr';
   const profTrack = isAgathe ? (isFr ? 'Management & Bourses Universitaires' : 'Management & University Scholarships') : (isFr ? 'Ingénierie & Bourse CSC Haute Distinction' : 'Engineering & CSC High-Level Scholarship');
@@ -378,7 +376,7 @@ export function renderChecklistProgress(summary) {
     <!-- Candidate Profile Workspace Banner -->
     <div class="candidate-workspace-banner" style="margin-bottom: 1.5rem;">
       <div class="candidate-info-group">
-        <span class="candidate-avatar">${profAvatar}</span>
+        <span class="candidate-monogram ${isAgathe ? 'mono-agathe' : 'mono-matthieu'}">${isAgathe ? 'A' : 'M'}</span>
         <div class="candidate-meta">
           <span class="candidate-name">${t('Candidate Workspace:')} ${profName}</span>
           <span class="candidate-track">${t('Target Track:')} ${profTrack} · ${completed}/${total} ${isFr ? 'documents prêts' : 'documents ready'}</span>
@@ -386,7 +384,6 @@ export function renderChecklistProgress(summary) {
       </div>
       <button type="button" class="candidate-switch-link" data-profile="${otherId}">
         <span>${t(isAgathe ? 'Switch to Matthieu' : 'Switch to Agathe')}</span>
-        <span>${otherAvatar}</span>
       </button>
     </div>
 

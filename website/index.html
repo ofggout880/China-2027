@@ -39,12 +39,14 @@
             <h2 class="view-title" data-i18n="Preparation Dashboard">Preparation Dashboard</h2>
             <p class="view-desc" data-i18n="Countdown to September 2027 deadlines and macroeconomic insights into modern China.">Countdown to September 2027 deadlines and macroeconomic insights into modern China.</p>
           </div>
-          <!-- Mounting targets for Milestone M2 components -->
-          <div id="countdown-container" class="view-section"></div>
-          <div id="china-metrics-container" class="view-section"></div>
-          <div id="stats-grid" class="stats-grid view-section"></div>
-          <div id="charts-container" class="charts-grid view-section"></div>
-          <div id="china-news-container" class="view-section"></div>
+          <!-- Bento Grid Architecture Mount Point with Required Anchors -->
+          <div id="dashboard-bento-container" class="dashboard-bento-slot">
+            <div id="countdown-container" class="view-section"></div>
+            <div id="china-metrics-container" class="view-section"></div>
+            <div id="stats-grid" class="stats-grid view-section"></div>
+            <div id="charts-container" class="charts-grid view-section"></div>
+            <div id="china-news-container" class="view-section"></div>
+          </div>
         </section>
 
         <!-- View 2: School Finder -->
