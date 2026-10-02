@@ -4,6 +4,7 @@
  */
 import { store } from '../store.js';
 import { t } from '../i18n.js';
+import { ScrollProgress } from './ui/scroll-progress.js';
 
 export const NAV_ITEMS = [
   {
@@ -101,6 +102,7 @@ export function renderTopHeader() {
         </button>
       </div>
     </div>
+    ${ScrollProgress()}
   `;
 }
 
@@ -534,4 +536,9 @@ export function syncNavigationDOM(activeTab = 'dashboard') {
       panel.style.opacity = '0';
     }
   });
+
+  // Re-sync ScrollProgress with newly active tab panel height
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('scroll'));
+  }
 }

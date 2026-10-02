@@ -15,7 +15,7 @@
  */
 
 import { renderTopHeader, renderBottomNav, setupNavigationEvents, syncNavigationDOM } from './components/navigation.js';
-import { renderHeroBanner } from './components/heroBanner.js';
+import { renderHeroBanner, mountHeroBanner } from './components/heroBanner.js';
 import { initSceneController } from './three/sceneController.js';
 import { store } from './store.js';
 
@@ -37,12 +37,20 @@ import { mountChinaNews } from './components/chinaNews.js';
 import { newsData } from './data/newsData.js';
 import { setupI18n } from './i18n.js';
 import { initWelcomeModal } from './components/welcomeModal.js';
+import { mountScrollProgress } from './components/ui/scroll-progress.js';
 
 export function bootstrapApp() {
   // 1. Mount Top Header
   const headerContainer = document.getElementById('app-header');
   if (headerContainer) {
     headerContainer.innerHTML = renderTopHeader();
+  }
+
+  // 1b. Mount Magic UI ScrollProgress bar under header
+  try {
+    mountScrollProgress();
+  } catch (err) {
+    console.warn('[main] ScrollProgress mount handled with fallback:', err);
   }
 
   // 2. Mount Mobile Bottom Navigation
@@ -55,6 +63,11 @@ export function bootstrapApp() {
   const heroContainer = document.getElementById('hero-container');
   if (heroContainer) {
     heroContainer.innerHTML = renderHeroBanner();
+    try {
+      mountHeroBanner();
+    } catch (err) {
+      console.warn('[main] Hero globe mount fallback:', err);
+    }
   }
 
   // 4. Setup Interactive Navigation Event Listeners
@@ -102,7 +115,10 @@ window.addEventListener('languagechange', () => {
   if (bottomNavContainer) bottomNavContainer.innerHTML = renderBottomNav();
   
   const heroContainer = document.getElementById('hero-container');
-  if (heroContainer) heroContainer.innerHTML = renderHeroBanner();
+  if (heroContainer) {
+    heroContainer.innerHTML = renderHeroBanner();
+    try { mountHeroBanner(); } catch (_) {}
+  }
 
   initDashboardView();
   initRoadmapTools();
