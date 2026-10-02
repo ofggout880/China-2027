@@ -101,4 +101,7 @@ const srcHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
 fs.writeFileSync(path.join(DIST_DIR, 'index.html'), srcHtml, 'utf8');
 console.log(`[BUILD] Generated dist/index.html (${srcHtml.length} bytes)`);
 
+// 6. GitHub Pages .nojekyll file
+fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '', 'utf8');
+
 console.log('[BUILD] Build completed successfully into dist/');
